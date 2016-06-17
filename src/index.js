@@ -95,6 +95,10 @@ const resolveRamda =
 //    main :: Process -> ()
 const main = (process) => {
   readFileStdin(process.argv[2], (err, buf) => {
+    if (err) {
+      process.stderr.write(err.toString());
+      process.exit(1);
+    }
     const localRamda = resolveRamda(process);
     const input = buf.toString()
       .replace(/toString\b/g, '__toString__');
